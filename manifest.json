@@ -7,7 +7,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://familysearch.org/tree/person/*"],
+      "matches": ["https://familysearch.org/tree/*"],
       "css": ["src/tabs.css"],
       "js": ["src/tabs.js"]
     }
