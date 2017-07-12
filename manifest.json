@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "FS Custom Tabs",
+  "description": "Add custom tabs to the FamilySearch Family Tree",
+  "version": "1.0",
+
+  "content_scripts": [
+    {
+      "matches": ["https://familysearch.org/tree/person/*"],
+      "css": ["src/tabs.css"],
+      "js": ["src/tabs.js"]
+    }
+  ]
+}
