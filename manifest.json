@@ -13,6 +13,7 @@
         "src/Base.js",
         "src/ConfigTab.js",
         "src/ConfigTabContent.js",
+        "src/OriginalController.js",
         "src/index.js"
       ]
     }

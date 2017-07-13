@@ -5,13 +5,14 @@
   // Tabs are rendered when the ID changes.
   var personId = null;
 
-  // Track whether the custom tab has been added to the DOM
-  var tabsRendered = false;
-
   var configTab = new ConfigTab();
   configTab.onClick = showConfigTab;
 
   var configTabContent = new ConfigTabContent();
+
+  var original = new OriginalController();
+  original.addCustomTab(configTab.dom());
+  original.onTabClick(resetCustomState);
 
   // Poll for URL changes.
   // The Family Tree uses he HTML5 History API but that API
@@ -38,12 +39,6 @@
     // Switched to a different person page
     else if(newPersonId !== personId) {
       personId = newPersonId;
-      if(!tabsRendered) {
-        onTabRender(function(){
-          addCustomTabs();
-          tabsRendered = true;
-        });
-      }
     }
   }
 
@@ -86,45 +81,6 @@
         callback();
       }
     }, 500);
-  }
-
-  /**
-   * Detect when tabs are rendered on a person page.
-   * 
-   * @param {Function} callback Function called when the tabs have been rendered
-   */
-  function onTabRender(callback) {
-    var tabs;
-
-    // Poll for changes
-    var interval = setInterval(function() {
-      if(tabs = getTabList()) {
-        
-        // Stop polling
-        clearInterval(interval);
-
-        // Setup click listeners so that we can clear highlights
-        // on custom tabs when original tabs are clicked
-        for(var i = 0; i < tabs.children.length; i++) {
-          tabs.children[i].addEventListener('click', function(){
-            resetCustomState();
-          });
-        }
-
-        // Fire the callback
-        setTimeout(callback);
-      }
-    }, 100);
-  }
-
-  /**
-   * Render the custom tabs
-   */
-  function addCustomTabs() {
-    var tabs = getTabList();
-    if(tabs) {
-      tabs.appendChild(configTab.dom());
-    }
   }
 
   /**
@@ -179,7 +135,7 @@
    * @return {NodeList}
    */
   function getTabList() {
-    return document.querySelector('#PersonSummary .tab-list');
+    
   }
 
 }();
