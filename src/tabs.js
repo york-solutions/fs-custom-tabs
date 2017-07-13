@@ -164,7 +164,7 @@ function renderConfigTabContent() {
  */
 function generateConfigContent() {
   var section = document.createElement('div');
-  section.classList.add('custom-configuration-content');
+  section.classList.add('custom-content', 'custom-configuration-content');
   section.textContent = 'Custom tab configuration';
   return section;
 }
@@ -190,17 +190,13 @@ function hideContentSections() {
  * Clear highlights on custom tabs and hide custom tab content
  */
 function resetCustomState() {
-  clearCustomTabHighlights();
-  // TODO: hide custom tab content
-}
-
-/**
- * Remove custom tab highlights
- */
-function clearCustomTabHighlights() {
-  var tabs = document.querySelectorAll('.custom-tab');
+  var tabs = document.querySelectorAll('#ancestorPage .custom-tab');
   for(var i =0; i < tabs.length; i++) {
     tabs[i].classList.remove('tab-highlight');
+  }
+  var sections = document.querySelectorAll('#ancestorPage .custom-content');
+  for(var i =0; i < sections.length; i++) {
+    sections[i].classList.add('hide');
   }
 }
 
