@@ -8,8 +8,13 @@
   "content_scripts": [
     {
       "matches": ["https://familysearch.org/tree/*"],
-      "css": ["src/tabs.css"],
-      "js": ["src/tabs.js"]
+      "css": ["src/index.css"],
+      "js": [
+        "src/Base.js",
+        "src/ConfigTab.js",
+        "src/ConfigTabContent.js",
+        "src/index.js"
+      ]
     }
   ]
 }
