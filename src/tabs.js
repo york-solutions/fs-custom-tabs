@@ -3,6 +3,9 @@
 // Tabs are rendered when the ID changes.
 var personId = null;
 
+// Track whether the custom tab has been added to the DOM
+var tabsRendered = false;
+
 // Poll for URL changes.
 // The Family Tree uses he HTML5 History API but that API
 // doesn't fire events for pushState so we can't detect all
@@ -28,12 +31,12 @@ function update() {
   // Switched to a different person page
   else if(newPersonId !== personId) {
     personId = newPersonId;
-    onTabRender(addCustomTabs);
-  }
-
-  // Navigated to different tab of the same person
-  else {
-    // TODO: might need to update highlighted state of custom tabs
+    if(!tabsRendered) {
+      onTabRender(function(){
+        addCustomTabs();
+        tabsRendered = true;
+      });
+    }
   }
 }
 
