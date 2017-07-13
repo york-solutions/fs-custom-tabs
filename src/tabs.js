@@ -16,7 +16,7 @@ update();
  */
 function update() {
 
-  clearCustomTabHighlights();
+  resetCustomState();
 
   var newPersonId = getPersonPageId();
 
@@ -97,7 +97,7 @@ function onTabRender(callback) {
       // on custom tabs when original tabs are clicked
       for(var i = 0; i < tabs.children.length; i++) {
         tabs.children[i].addEventListener('click', function(){
-          clearCustomTabHighlights();
+          resetCustomState();
         });
       }
 
@@ -155,6 +155,14 @@ function renderConfigTabContent() {
  */
 function removeOriginalTabHighlights() {
   document.getElementById('PersonSummary').setAttribute('data-section-showing', '');
+}
+
+/**
+ * Clear highlights on custom tabs and hide custom tab content
+ */
+function resetCustomState() {
+  clearCustomTabHighlights();
+  // TODO: hide custom tab content
 }
 
 /**
