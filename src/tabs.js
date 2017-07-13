@@ -110,12 +110,36 @@ function generateConfigTab() {
   var configLink = document.createElement('a');
   configLink.classList.add('tab-link');
   configLink.textContent = '+';
+  configLink.href = 'javascript:void(0);';
+  configLink.addEventListener('click', renderConfigTabContent);
 
   var configTab = document.createElement('li');
   configTab.classList.add('tab');
   configTab.appendChild(configLink);
+  configTab.id = 'custom-config-tab';
 
   return configTab;
+}
+
+/**
+ * Render the config tab content
+ */
+function renderConfigTabContent() {
+  removeOriginalTabHighlights();
+  highlightCustomConfigTab();
+
+  // TODO: render tab
+}
+
+/**
+ * 
+ */
+function removeOriginalTabHighlights() {
+  document.getElementById('PersonSummary').setAttribute('data-section-showing', '');
+}
+
+function highlightCustomConfigTab() {
+  document.getElementById('custom-config-tab').classList.add('tab-highlight');
 }
 
 /**

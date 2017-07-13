@@ -1,0 +1,11 @@
+.tab-highlight {
+  border-color: #B7B7B7 !important;
+  border-bottom-color: transparent !important;
+}
+
+.tab-highlight .tab-link {
+  background: #ECEBEA;
+  border-color: #fff;
+  border-bottom-color: transparent;
+  color: #333331;
+}
