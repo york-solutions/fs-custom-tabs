@@ -137,6 +137,8 @@ function generateConfigTab() {
   configLink.href = 'javascript:void(0);';
   configLink.addEventListener('click', function(){
     configTab.classList.add('tab-highlight');
+    removeOriginalTabHighlights();
+    hideContentSections();
     renderConfigTabContent();
   });
 
@@ -149,8 +151,22 @@ function generateConfigTab() {
  * Render the config tab content
  */
 function renderConfigTabContent() {
-  removeOriginalTabHighlights();
-  // TODO: render tab
+  var configContent = document.getElementById('custom-config-content');
+  if(!configContent) {
+    configContent = generateConfigContent();
+    document.querySelector('#ancestorPage .mainContent').appendChild(configContent);
+  }
+  configContent.classList.remove('hide');
+}
+
+/**
+ * Create the config tab content
+ */
+function generateConfigContent() {
+  var section = document.createElement('div');
+  section.classList.add('custom-configuration-content');
+  section.textContent = 'Custom tab configuration';
+  return section;
 }
 
 /**
@@ -158,6 +174,16 @@ function renderConfigTabContent() {
  */
 function removeOriginalTabHighlights() {
   document.getElementById('PersonSummary').setAttribute('data-section-showing', '');
+}
+
+/**
+ * Hide content sections
+ */
+function hideContentSections() {
+  var sections = document.querySelectorAll('#ancestorPage [class*="-content"]');
+  for(var i = 0; i < sections.length; i++) {
+    sections[i].classList.add('hide');
+  }
 }
 
 /**
