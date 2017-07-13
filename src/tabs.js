@@ -19,20 +19,26 @@ function update() {
 
   // No longer on a person page
   if(newPersonId === null) {
-    console.log('not a person page');
+    // TODO: Do we need to do anything here? cleanup?
   }
 
   // Switched to a different person page
   else if(newPersonId !== personId) {
-    console.log('new person page', newPersonId);
     personId = newPersonId;
-    // TODO: detect when tabs are rendered
+    onTabChange(addCustomTabs);
+  }
+
+  // Navigated to different tab of the same person
+  else {
+    // TODO: might need to update highlighted state of custom tabs
   }
 }
 
 /**
  * Get the ID of the person when on a person page.
  * Otherwise return null.
+ * 
+ * @return {String|null}
  */
 function getPersonPageId() {
   if(isPersonPage()) {
@@ -67,4 +73,56 @@ function onURLChange(callback) {
       callback();
     }
   }, 500);
+}
+
+/**
+ * Detect when tabs are rendered on a person page.
+ * 
+ * @param {Function} callback Function called when the tabs have been rendered
+ */
+function onTabChange(callback) {
+  // Poll for changes
+  var interval = setInterval(function(){
+    if(getTabList()){
+      clearInterval(interval);
+      setTimeout(callback);
+    }
+  }, 100);
+}
+
+/**
+ * Render the custom tabs
+ */
+function addCustomTabs() {
+  var configTab = generateConfigTab();
+  var tabs = getTabList();
+  if(tabs) {
+    tabs.appendChild(configTab);
+  }
+}
+
+/**
+ * Create the + config tab element
+ * 
+ * @return {Element}
+ */
+function generateConfigTab() {
+  var configLink = document.createElement('a');
+  configLink.classList.add('tab-link');
+  configLink.textContent = '+';
+
+  var configTab = document.createElement('li');
+  configTab.classList.add('tab');
+  configTab.appendChild(configLink);
+
+  return configTab;
+}
+
+/**
+ * Get tab list
+ * 
+ * @return {NodeList}
+ */
+function getTabList() {
+  return document.querySelector('#PersonSummary .tab-list');
 }
