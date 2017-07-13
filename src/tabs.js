@@ -15,6 +15,9 @@ update();
  * Decide what to do when the page loads and when the URL changes
  */
 function update() {
+
+  clearCustomTabHighlights();
+
   var newPersonId = getPersonPageId();
 
   // No longer on a person page
@@ -25,7 +28,7 @@ function update() {
   // Switched to a different person page
   else if(newPersonId !== personId) {
     personId = newPersonId;
-    onTabChange(addCustomTabs);
+    onTabRender(addCustomTabs);
   }
 
   // Navigated to different tab of the same person
@@ -80,11 +83,25 @@ function onURLChange(callback) {
  * 
  * @param {Function} callback Function called when the tabs have been rendered
  */
-function onTabChange(callback) {
+function onTabRender(callback) {
+  var tabs;
+
   // Poll for changes
-  var interval = setInterval(function(){
-    if(getTabList()){
+  var interval = setInterval(function() {
+    if(tabs = getTabList()) {
+      
+      // Stop polling
       clearInterval(interval);
+
+      // Setup click listeners so that we can clear highlights
+      // on custom tabs when original tabs are clicked
+      for(var i = 0; i < tabs.children.length; i++) {
+        tabs.children[i].addEventListener('click', function(){
+          clearCustomTabHighlights();
+        });
+      }
+
+      // Fire the callback
       setTimeout(callback);
     }
   }, 100);
@@ -107,16 +124,20 @@ function addCustomTabs() {
  * @return {Element}
  */
 function generateConfigTab() {
+  var configTab = document.createElement('li');
+  configTab.classList.add('tab', 'custom-tab');
+  configTab.id = 'custom-config-tab';
+  
   var configLink = document.createElement('a');
   configLink.classList.add('tab-link');
   configLink.textContent = '+';
   configLink.href = 'javascript:void(0);';
-  configLink.addEventListener('click', renderConfigTabContent);
+  configLink.addEventListener('click', function(){
+    configTab.classList.add('tab-highlight');
+    renderConfigTabContent();
+  });
 
-  var configTab = document.createElement('li');
-  configTab.classList.add('tab');
   configTab.appendChild(configLink);
-  configTab.id = 'custom-config-tab';
 
   return configTab;
 }
@@ -126,20 +147,24 @@ function generateConfigTab() {
  */
 function renderConfigTabContent() {
   removeOriginalTabHighlights();
-  highlightCustomConfigTab();
-
   // TODO: render tab
 }
 
 /**
- * 
+ * Remove highlights (active state) from original person tabs
  */
 function removeOriginalTabHighlights() {
   document.getElementById('PersonSummary').setAttribute('data-section-showing', '');
 }
 
-function highlightCustomConfigTab() {
-  document.getElementById('custom-config-tab').classList.add('tab-highlight');
+/**
+ * Remove custom tab highlights
+ */
+function clearCustomTabHighlights() {
+  var tabs = document.querySelectorAll('.custom-tab');
+  for(var i =0; i < tabs.length; i++) {
+    tabs[i].classList.remove('tab-highlight');
+  }
 }
 
 /**
