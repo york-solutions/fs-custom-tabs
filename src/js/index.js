@@ -1,5 +1,7 @@
-import ConfigTab from './components/ConfigTab.js';
+// import ConfigTab from './components/ConfigTab.js';
 import ConfigTabContent from './components/ConfigTabContent.js';
+import Tab from './components/Tab.js';
+
 import Original from './controllers/Original.js';
 import Installer from './controllers/Installer.js';
 
@@ -8,20 +10,14 @@ import Installer from './controllers/Installer.js';
 // Tabs are rendered when the ID changes.
 var personId = null;
 
-var configTab = new ConfigTab();
-configTab.onClick = showConfigTab;
-
 var configTabContent = new ConfigTabContent();
 
-Original.addCustomTab(configTab.dom());
 Original.onTabClick(resetCustomState);
 
-Installer.onInstallTab(function(tab){
-  console.log('new tab installed');
-});
+Installer.onInstallTab(renderCustomTabs);
+renderCustomTabs();
 
 onURLChange(update);
-
 update();
 
 /**
@@ -88,10 +84,41 @@ function onURLChange(callback) {
 }
 
 /**
+ * Render the custom tabs
+ */
+function renderCustomTabs() {
+  
+  // Get a list of installed tabs and create DOM for them.
+  const installedTabs = Installer.getInstalledTabs()
+    .map(t => createCustomTab(t));
+  installedTabs.push(createConfigTab());
+
+  // Clear existing custom tabs in the DOM
+  Original.clearCustomTabs();
+
+  // Add new tabs
+  installedTabs.forEach(t => Original.addCustomTab(t.dom()));
+}
+
+function createConfigTab() {
+  const tab = new Tab('+');
+  tab.onClick = showConfigTab;
+  return tab;
+}
+
+function createCustomTab(t) {
+  const tab = new Tab(t.title);
+  tab.onClick = () => {
+    console.log('cusotm tab clicked', t.title);
+  };
+  return tab;
+}
+
+/**
  * Show the configuration page
  */
 function showConfigTab() {
-  configTab.addHighlight();
+  // configTab.addHighlight();
   Original.removeTabHighlights();
   Original.hideContentSections();
   renderConfigTabContent();
@@ -112,6 +139,6 @@ function renderConfigTabContent() {
  * Clear highlights on custom tabs and hide custom tab content
  */
 function resetCustomState() {
-  configTab.removeHighlight();
+  // configTab.removeHighlight();
   configTabContent.hide();
 }

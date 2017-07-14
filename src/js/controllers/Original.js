@@ -9,6 +9,7 @@ class OriginalController {
     this._tabsList = null;
     this._whenRenderedCallbacks = [];
     this._onTabClickCallbacks = [];
+    this._customTabs = [];
 
     this.whenTabsRender(function(){
       this._setupClickListeners();
@@ -35,8 +36,15 @@ class OriginalController {
 
   addCustomTab($tab) {
     this.whenTabsRender(function(){
+      this._customTabs.push($tab);
       this._tabsList.appendChild($tab);
     }.bind(this));
+  }
+
+  clearCustomTabs() {
+    this._customTabs.forEach($ct => {
+      this._tabsList.removeChild($ct);
+    });
   }
 
   removeTabHighlights() {

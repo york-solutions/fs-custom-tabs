@@ -20,6 +20,10 @@ class Installer {
     this._onInstallTabCallbacks.push(callback);
   }
 
+  getInstalledTabs() {
+    return this._installedTabs.map(t => utils.copy(t));
+  }
+
 }
 
 // Singleton!
