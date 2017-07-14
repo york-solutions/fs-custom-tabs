@@ -8,9 +8,12 @@ import Installer from './controllers/Installer.js';
 // ID of the person page we're currently looking at.
 // This helps us detect when the tabs will be rendered.
 // Tabs are rendered when the ID changes.
-var personId = null;
+let personId = null;
 
-var configTabContent = new ConfigTabContent();
+const configTab = createConfigTab();
+const configTabContent = new ConfigTabContent();
+
+let tabs = [configTab];
 
 Original.onTabClick(resetCustomState);
 
@@ -27,7 +30,7 @@ function update() {
 
   resetCustomState();
 
-  var newPersonId = getPersonPageId();
+  const newPersonId = getPersonPageId();
 
   // No longer on a person page
   if(newPersonId === null) {
@@ -72,7 +75,7 @@ function isPersonPage() {
 function onURLChange(callback) {
   
   // Cache the current value
-  var path = window.location.pathname;
+  let path = window.location.pathname;
 
   // Setup the polling
   window.setInterval(function() {
@@ -89,15 +92,15 @@ function onURLChange(callback) {
 function renderCustomTabs() {
   
   // Get a list of installed tabs and create DOM for them.
-  const installedTabs = Installer.getInstalledTabs()
+  tabs = Installer.getInstalledTabs()
     .map(t => createCustomTab(t));
-  installedTabs.push(createConfigTab());
+  tabs.push(configTab);
 
   // Clear existing custom tabs in the DOM
   Original.clearCustomTabs();
 
   // Add new tabs
-  installedTabs.forEach(t => Original.addCustomTab(t.dom()));
+  tabs.forEach(t => Original.addCustomTab(t.dom()));
 }
 
 function createConfigTab() {
@@ -109,7 +112,12 @@ function createConfigTab() {
 function createCustomTab(t) {
   const tab = new Tab(t.title);
   tab.onClick = () => {
-    console.log('cusotm tab clicked', t.title);
+    Original.removeTabHighlights();
+    removeCustomTabHighlights();
+    tab.addHighlight();
+    Original.hideContentSections();
+    // TODO: show custom content section
+    console.log('custom tab clicked', t.title);
   };
   return tab;
 }
@@ -118,8 +126,9 @@ function createCustomTab(t) {
  * Show the configuration page
  */
 function showConfigTab() {
-  // configTab.addHighlight();
   Original.removeTabHighlights();
+  removeCustomTabHighlights();
+  configTab.addHighlight();
   Original.hideContentSections();
   renderConfigTabContent();
 }
@@ -130,7 +139,7 @@ function showConfigTab() {
 function renderConfigTabContent() {
   // TODO: currently this will remove and re-add the tab content to the DOM
   // each time we want to show it. Let's improve that.
-  var $content = configTabContent.dom();
+  const $content = configTabContent.dom();
   document.querySelector('#ancestorPage .mainContent').appendChild($content);
   configTabContent.show();
 }
@@ -139,6 +148,10 @@ function renderConfigTabContent() {
  * Clear highlights on custom tabs and hide custom tab content
  */
 function resetCustomState() {
-  // configTab.removeHighlight();
+  removeCustomTabHighlights();
   configTabContent.hide();
+}
+
+function removeCustomTabHighlights() {
+  tabs.forEach(t => t.removeHighlight());
 }
