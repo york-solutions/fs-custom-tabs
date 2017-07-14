@@ -16,9 +16,9 @@ class ConfigTabContent extends Base {
     title.textContent = 'Available Tabs';
     wrap.appendChild(title);
 
-    // Add tabs list
+    // Add list of available tabs
     AvailableTabs.forEach(function(tab){
-      wrap.appendChild(new CustomTab(tab).dom());
+      wrap.appendChild(new AvailableTab(tab).dom());
     }.bind(this));
 
     return content;

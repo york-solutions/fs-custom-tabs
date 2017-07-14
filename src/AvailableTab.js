@@ -1,4 +1,4 @@
-class CustomTab extends Base {
+class AvailableTab extends Base {
 
   constructor(data) {
     super();
@@ -20,6 +20,9 @@ class CustomTab extends Base {
     var button = document.createElement('button');
     button.textContent = '+ Add';
     tab.appendChild(button);
+    tab.addEventListener('click', function(){
+      console.log('foo');
+    });
 
     return tab;
   }
