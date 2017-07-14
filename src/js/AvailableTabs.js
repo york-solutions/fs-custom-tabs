@@ -1,4 +1,4 @@
-var AvailableTabs = [
+export default [
 
   {
     "id": "google",

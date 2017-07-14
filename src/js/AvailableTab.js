@@ -1,3 +1,5 @@
+import Base from './Base.js';
+
 class AvailableTab extends Base {
 
   constructor(data) {
@@ -28,3 +30,5 @@ class AvailableTab extends Base {
   }
 
 }
+
+export default AvailableTab;

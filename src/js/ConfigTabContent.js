@@ -1,3 +1,7 @@
+import Base from './Base.js';
+import AvailableTab from './AvailableTab.js';
+import availableTabs from './AvailableTabs.js';
+
 class ConfigTabContent extends Base {
 
   render() {
@@ -17,7 +21,7 @@ class ConfigTabContent extends Base {
     wrap.appendChild(title);
 
     // Add list of available tabs
-    AvailableTabs.forEach(function(tab){
+    availableTabs.forEach(function(tab){
       wrap.appendChild(new AvailableTab(tab).dom());
     }.bind(this));
 
@@ -37,3 +41,5 @@ class ConfigTabContent extends Base {
   }
 
 }
+
+export default ConfigTabContent;

@@ -90,3 +90,5 @@ class OriginalController {
   }
 
 }
+
+export default OriginalController;

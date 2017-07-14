@@ -1,3 +1,5 @@
+import Base from './Base.js';
+
 class ConfigTab extends Base {
 
   constructor() {
@@ -38,3 +40,5 @@ class ConfigTab extends Base {
   }
 
 }
+
+export default ConfigTab;
