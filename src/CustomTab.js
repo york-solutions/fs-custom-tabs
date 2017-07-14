@@ -18,7 +18,7 @@ class CustomTab extends Base {
     tab.appendChild(descr);
 
     var button = document.createElement('button');
-    button.textContent = '+';
+    button.textContent = '+ Add';
     tab.appendChild(button);
 
     return tab;

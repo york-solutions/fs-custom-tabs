@@ -32,4 +32,6 @@
 
 .available-tab button {
   margin-top: 0;
+  background: transparent;
+  border: 0;
 }
