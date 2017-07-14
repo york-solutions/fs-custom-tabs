@@ -14,10 +14,6 @@
   original.addCustomTab(configTab.dom());
   original.onTabClick(resetCustomState);
 
-  // Poll for URL changes.
-  // The Family Tree uses he HTML5 History API but that API
-  // doesn't fire events for pushState so we can't detect all
-  // changes without polling.
   onURLChange(update);
 
   update();
@@ -65,7 +61,9 @@
   }
 
   /**
-   * Poll for URL changes.
+   * Poll for URL changes. The Family Tree uses he HTML5 History API 
+   * but that API doesn't fire events for pushState so we can't detect 
+   * all URL changes without polling.
    * 
    * @param {Function} callback Function called when a URL change is detected
    */
@@ -88,8 +86,8 @@
    */
   function showConfigTab() {
     configTab.addHighlight();
-    removeOriginalTabHighlights();
-    hideContentSections();
+    original.removeTabHighlights();
+    original.hideContentSections();
     renderConfigTabContent();
   }
 
@@ -105,37 +103,11 @@
   }
 
   /**
-   * Remove highlights (active state) from original person tabs
-   */
-  function removeOriginalTabHighlights() {
-    document.getElementById('PersonSummary').setAttribute('data-section-showing', '');
-  }
-
-  /**
-   * Hide content sections
-   */
-  function hideContentSections() {
-    var sections = document.querySelectorAll('#ancestorPage [class*="-content"]');
-    for(var i = 0; i < sections.length; i++) {
-      sections[i].classList.add('hide');
-    }
-  }
-
-  /**
    * Clear highlights on custom tabs and hide custom tab content
    */
   function resetCustomState() {
     configTab.removeHighlight();
     configTabContent.hide();
-  }
-
-  /**
-   * Get tab list
-   * 
-   * @return {NodeList}
-   */
-  function getTabList() {
-    
   }
 
 }();

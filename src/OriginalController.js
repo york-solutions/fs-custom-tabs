@@ -39,6 +39,17 @@ class OriginalController {
     }.bind(this));
   }
 
+  removeTabHighlights() {
+    document.getElementById('PersonSummary').setAttribute('data-section-showing', '');
+  }
+
+  hideContentSections() {
+    var sections = document.querySelectorAll('#ancestorPage [class*="-content"]:not([class~="custom-content"])');
+    for(var i = 0; i < sections.length; i++) {
+      sections[i].classList.add('hide');
+    }
+  }
+
   _pollForTabs() {
 
     // Start polling
