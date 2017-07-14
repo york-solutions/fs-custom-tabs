@@ -1,6 +1,6 @@
-import ConfigTab from './ConfigTab.js';
-import ConfigTabContent from './ConfigTabContent.js';
-import OriginalController from './OriginalController.js';
+import ConfigTab from './components/ConfigTab.js';
+import ConfigTabContent from './components/ConfigTabContent.js';
+import OriginalController from './controllers/Original.js';
 
 // ID of the person page we're currently looking at.
 // This helps us detect when the tabs will be rendered.
