@@ -91,4 +91,5 @@ class OriginalController {
 
 }
 
-export default OriginalController;
+// Singleton!
+export default new OriginalController();

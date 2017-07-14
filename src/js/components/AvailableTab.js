@@ -1,29 +1,31 @@
 import Base from './Base.js';
+import utils from '../utils.js';
+import Installer from '../controllers/Installer.js';
 
 class AvailableTab extends Base {
 
   constructor(data) {
     super();
-    this.data = JSON.parse(JSON.stringify(data));
+    this.data = utils.copy(data);
   }
 
   render() {
-    var tab = document.createElement('div');
+    const tab = document.createElement('div');
     tab.classList.add('available-tab');
 
-    var icon = document.createElement('img');
+    const icon = document.createElement('img');
     icon.src = this.data.icon;
     tab.appendChild(icon);
 
-    var descr = document.createElement('p');
+    const descr = document.createElement('p');
     descr.textContent = this.data.description;
     tab.appendChild(descr);
 
-    var button = document.createElement('button');
+    const button = document.createElement('button');
     button.textContent = '+ Add';
     tab.appendChild(button);
-    tab.addEventListener('click', function(){
-      console.log('foo');
+    tab.addEventListener('click', () => {
+      Installer.installTab(this.data);
     });
 
     return tab;

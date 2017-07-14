@@ -1,6 +1,7 @@
 import ConfigTab from './components/ConfigTab.js';
 import ConfigTabContent from './components/ConfigTabContent.js';
-import OriginalController from './controllers/Original.js';
+import Original from './controllers/Original.js';
+import Installer from './controllers/Installer.js';
 
 // ID of the person page we're currently looking at.
 // This helps us detect when the tabs will be rendered.
@@ -12,9 +13,12 @@ configTab.onClick = showConfigTab;
 
 var configTabContent = new ConfigTabContent();
 
-var original = new OriginalController();
-original.addCustomTab(configTab.dom());
-original.onTabClick(resetCustomState);
+Original.addCustomTab(configTab.dom());
+Original.onTabClick(resetCustomState);
+
+Installer.onInstallTab(function(tab){
+  console.log('new tab installed');
+});
 
 onURLChange(update);
 
@@ -88,8 +92,8 @@ function onURLChange(callback) {
  */
 function showConfigTab() {
   configTab.addHighlight();
-  original.removeTabHighlights();
-  original.hideContentSections();
+  Original.removeTabHighlights();
+  Original.hideContentSections();
   renderConfigTabContent();
 }
 
