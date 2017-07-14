@@ -8,7 +8,7 @@ class ConfigTab extends Base {
   }
 
   render() {
-    var self = this;
+    var self = this;      
 
     var configTab = document.createElement('li');
     configTab.classList.add('tab', 'custom-tab');

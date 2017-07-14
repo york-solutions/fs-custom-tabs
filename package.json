@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node build.js",
-    "watch": "watch \"npm run build\" src"
+    "build": "rollup src/js/index.js --format iife --output dist/index.js --sourcemap"
   },
   "repository": {
     "type": "git",
@@ -18,10 +17,6 @@
   },
   "homepage": "https://github.com/york-solutions/fs-custom-tabs#readme",
   "dependencies": {
-    "opn": "^5.1.0",
-    "rollup": "0.45.2"
-  },
-  "devDependencies": {
-    "watch": "1.0.2"
+    "rollup": "^0.45.2"
   }
 }
