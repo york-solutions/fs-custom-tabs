@@ -1,10 +1,27 @@
 class ConfigTabContent extends Base {
 
   render() {
+    var content = document.createElement('div');
+    content.classList.add('custom-content', 'custom-configuration-content');
+    
     var section = document.createElement('div');
-    section.classList.add('custom-content', 'custom-configuration-content');
-    section.textContent = 'Custom tab configuration';
-    return section;
+    section.classList.add('rounded-section');
+    content.appendChild(section);
+    
+    var wrap = document.createElement('div');
+    wrap.classList.add('section-wrap');
+    section.appendChild(wrap);
+
+    var title = document.createElement('h4');
+    title.textContent = 'Available Tabs';
+    wrap.appendChild(title);
+
+    // Add tabs list
+    AvailableTabs.forEach(function(tab){
+      wrap.appendChild(new CustomTab(tab).dom());
+    }.bind(this));
+
+    return content;
   }
 
   show() {

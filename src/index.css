@@ -9,3 +9,27 @@
   border-bottom-color: transparent;
   color: #333331;
 }
+
+.custom-content {
+  margin: 0 15px;
+}
+
+.custom-configuration-content h4 {
+  margin-bottom: 1em;
+}
+
+.available-tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin: auto;
+}
+
+.available-tab img {
+  width: 200px;
+}
+
+.available-tab button {
+  margin-top: 0;
+}
