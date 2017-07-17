@@ -5,14 +5,9 @@ import Original from './controllers/Original.js';
 import Installer from './controllers/Installer.js';
 
 // ID of the person page we're currently looking at.
-// This helps us detect when the tabs will be rendered.
-// Tabs are rendered when the ID changes.
 let personId = null;
 
 let accessToken = getCookieValue('fssessionid');
-if(!accessToken) {
-  console.log(document.cookie);
-}
 
 const configTab = new ConfigTab();
 configTab.onClick = showTabPage;
@@ -22,6 +17,7 @@ let tabs = [configTab];
 Original.onTabClick(resetCustomState);
 
 Installer.onInstallTab(renderCustomTabs);
+Installer.onLoad(renderCustomTabs);
 renderCustomTabs();
 
 onURLChange(update);

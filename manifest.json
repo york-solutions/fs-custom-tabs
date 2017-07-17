@@ -11,5 +11,7 @@
       "css": ["src/css/index.css"],
       "js": ["dist/index.js"]
     }
-  ]
+  ],
+
+  "permissions": ["storage"]
 }
