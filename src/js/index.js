@@ -1,5 +1,4 @@
-// import ConfigTab from './components/ConfigTab.js';
-import ConfigTabContent from './components/ConfigTabContent.js';
+import ConfigTab from './components/ConfigTab.js';
 import Tab from './components/Tab.js';
 
 import Original from './controllers/Original.js';
@@ -10,8 +9,8 @@ import Installer from './controllers/Installer.js';
 // Tabs are rendered when the ID changes.
 let personId = null;
 
-const configTab = createConfigTab();
-const configTabContent = new ConfigTabContent();
+const configTab = new ConfigTab();
+configTab.onClick = showTabPage;
 
 let tabs = [configTab];
 
@@ -103,45 +102,27 @@ function renderCustomTabs() {
   tabs.forEach(t => Original.addCustomTab(t.dom()));
 }
 
-function createConfigTab() {
-  const tab = new Tab('+');
-  tab.onClick = showConfigTab;
-  return tab;
-}
-
 function createCustomTab(t) {
   const tab = new Tab(t.title);
-  tab.onClick = () => {
-    Original.removeTabHighlights();
-    removeCustomTabHighlights();
-    tab.addHighlight();
-    Original.hideContentSections();
-    // TODO: show custom content section
-    console.log('custom tab clicked', t.title);
-  };
+  tab.onClick = showTabPage;
   return tab;
 }
 
 /**
  * Show the configuration page
  */
-function showConfigTab() {
+function showTabPage(tab) {
   Original.removeTabHighlights();
   removeCustomTabHighlights();
-  configTab.addHighlight();
+  tab.addHighlight();
   Original.hideContentSections();
-  renderConfigTabContent();
+  hideCustomContentSections();
+  renderTabContent(tab);
 }
 
-/**
- * Render the config tab content
- */
-function renderConfigTabContent() {
-  // TODO: currently this will remove and re-add the tab content to the DOM
-  // each time we want to show it. Let's improve that.
-  const $content = configTabContent.dom();
-  document.querySelector('#ancestorPage .mainContent').appendChild($content);
-  configTabContent.show();
+function renderTabContent(tab) {
+  document.querySelector('#ancestorPage .mainContent').appendChild(tab.renderContent());
+  tab.showContent();
 }
 
 /**
@@ -149,9 +130,13 @@ function renderConfigTabContent() {
  */
 function resetCustomState() {
   removeCustomTabHighlights();
-  configTabContent.hide();
+  configTab.hideContent();
 }
 
 function removeCustomTabHighlights() {
   tabs.forEach(t => t.removeHighlight());
+}
+
+function hideCustomContentSections() {
+  tabs.forEach(t => t.hideContent());
 }

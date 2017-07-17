@@ -1,8 +1,8 @@
-import Base from './Base.js';
+import TabContent from './TabContent.js';
 import AvailableTab from './AvailableTab.js';
 import availableTabs from './AvailableTabs.js';
 
-class ConfigTabContent extends Base {
+class ConfigTabContent extends TabContent {
 
   render() {
     var content = document.createElement('div');
@@ -26,18 +26,6 @@ class ConfigTabContent extends Base {
     }.bind(this));
 
     return content;
-  }
-
-  show() {
-    if(this.$dom) {
-      this.$dom.classList.remove('hide');
-    }
-  }
-
-  hide() {
-    if(this.$dom) {
-      this.$dom.classList.add('hide');
-    }
   }
 
 }

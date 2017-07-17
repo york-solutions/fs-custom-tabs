@@ -1,11 +1,13 @@
 import Base from './Base.js';
+import TabContent from './TabContent';
 
-class CustomTab extends Base {
+class Tab extends Base {
 
   constructor(text) {
     super();
     this.onClick = function(){};
     this.text = text;
+    this.contentCreated = false;
   }
 
   render() {
@@ -17,7 +19,7 @@ class CustomTab extends Base {
     link.textContent = this.text;
     link.href = 'javascript:void(0);';
     link.addEventListener('click', () => {
-      this.onClick();
+      this.onClick(this);
     });
 
     tab.appendChild(link);
@@ -26,17 +28,44 @@ class CustomTab extends Base {
   }
 
   addHighlight() {
-    if(this.$dom) {
-      this.$dom.classList.add('tab-highlight');
-    }
+    this._ensureDOM();
+    this.$dom.classList.add('tab-highlight');
   }
 
   removeHighlight() {
-    if(this.$dom) {
-      this.$dom.classList.remove('tab-highlight');
+    this._ensureDOM();
+    this.$dom.classList.remove('tab-highlight');
+  }
+
+  _createContent() {
+    return new TabContent();
+  }
+
+  _isContentCreated() {
+    return this.contentCreated;
+  }
+
+  _ensureContentCreated() {
+    if(!this._isContentCreated()) {
+      this.content = this._createContent();
     }
+  }
+
+  renderContent() {
+    this._ensureContentCreated();
+    return this.content.dom();
+  }
+
+  showContent() {
+    this._ensureContentCreated();
+    this.content.show();
+  }
+
+  hideContent() {
+    this._ensureContentCreated();
+    this.content.hide();
   }
 
 }
 
-export default CustomTab;
+export default Tab;
