@@ -1,5 +1,5 @@
 import ConfigTab from './components/ConfigTab.js';
-import Tab from './components/Tab.js';
+import CustomTab from './components/CustomTab.js';
 
 import Original from './controllers/Original.js';
 import Installer from './controllers/Installer.js';
@@ -102,8 +102,8 @@ function renderCustomTabs() {
   tabs.forEach(t => Original.addCustomTab(t.dom()));
 }
 
-function createCustomTab(t) {
-  const tab = new Tab(t.title);
+function createCustomTab(data) {
+  const tab = new CustomTab(data);
   tab.onClick = showTabPage;
   return tab;
 }
