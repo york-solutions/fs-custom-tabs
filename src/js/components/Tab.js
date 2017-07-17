@@ -7,7 +7,6 @@ class Tab extends Base {
     super();
     this.onClick = function(){};
     this.text = text;
-    this.contentCreated = false;
   }
 
   render() {
@@ -42,7 +41,7 @@ class Tab extends Base {
   }
 
   _isContentCreated() {
-    return this.contentCreated;
+    return !!this.content;
   }
 
   _ensureContentCreated() {
