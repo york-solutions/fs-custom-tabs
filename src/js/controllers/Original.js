@@ -47,12 +47,20 @@ class OriginalController {
     });
   }
 
+  addContentSection($content, $existing) {
+    const main = document.querySelector('#ancestorPage .mainContent');
+    if($existing) {
+      main.removeChild($existing);
+    }
+    main.appendChild($content);
+  }
+
   removeTabHighlights() {
     document.getElementById('PersonSummary').setAttribute('data-section-showing', '');
   }
 
   hideContentSections() {
-    var sections = document.querySelectorAll('#ancestorPage [class*="-content"]:not([class~="custom-content"])');
+    const sections = document.querySelectorAll('#ancestorPage [class*="-content"]:not([class~="custom-content"])');
     for(var i = 0; i < sections.length; i++) {
       sections[i].classList.add('hide');
     }
@@ -61,7 +69,7 @@ class OriginalController {
   _pollForTabs() {
 
     // Start polling
-    var interval = setInterval(function() {
+    const interval = setInterval(function() {
       if(this._tabsList = this._getTabsList()) {
         
         // Stop polling

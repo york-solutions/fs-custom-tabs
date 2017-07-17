@@ -128,7 +128,7 @@ function showTabPage(tab) {
 }
 
 function renderTabContent(tab) {
-  document.querySelector('#ancestorPage .mainContent').appendChild(tab.renderContent());
+  Original.addContentSection(tab.renderContent());
   tab.showContent();
 }
 
