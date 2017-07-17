@@ -31,7 +31,7 @@ class CustomTabContent extends TabContent {
     const data = this.urlData();
     let url = this.url;
     Object.keys(data).forEach(key => {
-      url = url.replace(new RegExp(`\{${key}\}`), data[key]);
+      url = url.replace(`{${key}}`, data[key]);
     });
     return url;
   }
