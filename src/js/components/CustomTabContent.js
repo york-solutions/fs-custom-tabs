@@ -2,28 +2,38 @@ import TabContent from './TabContent.js';
 
 class CustomTabContent extends TabContent {
 
-  constructor(url) {
+  constructor(url, urlData) {
     super();
     this.url = url;
+    this.urlData = urlData;
   }
 
   render() {
-    var content = document.createElement('div');
+    const content = document.createElement('div');
     content.classList.add('custom-content');
     
-    var section = document.createElement('div');
+    const section = document.createElement('div');
     section.classList.add('rounded-section');
     content.appendChild(section);
     
-    var wrap = document.createElement('div');
+    const wrap = document.createElement('div');
     wrap.classList.add('section-wrap');
     section.appendChild(wrap);
 
-    var iframe = document.createElement('iframe');
-    iframe.src = this.url;
+    const iframe = document.createElement('iframe');
+    iframe.src = this._constructUrl(this.url);
     wrap.appendChild(iframe);
 
     return content;
+  }
+
+  _constructUrl() {
+    const data = this.urlData();
+    let url = this.url;
+    Object.keys(data).forEach(key => {
+      url = url.replace(new RegExp(`\{${key}\}`), data[key]);
+    });
+    return url;
   }
 
 }

@@ -6,10 +6,11 @@ class CustomTab extends Tab {
   constructor(data) {
     super(data.title);
     this.data = data;
+    this.urlData = function(){};
   }
 
   _createContent() {
-    return new CustomTabContent(this.data.url);
+    return new CustomTabContent(this.data.url, this.urlData);
   }
 
 }

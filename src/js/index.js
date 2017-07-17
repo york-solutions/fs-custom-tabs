@@ -105,7 +105,14 @@ function renderCustomTabs() {
 function createCustomTab(data) {
   const tab = new CustomTab(data);
   tab.onClick = showTabPage;
+  tab.urlData = urlData;
   return tab;
+}
+
+function urlData() {
+  return {
+    pid: personId
+  };
 }
 
 /**
