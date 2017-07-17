@@ -9,6 +9,11 @@ import Installer from './controllers/Installer.js';
 // Tabs are rendered when the ID changes.
 let personId = null;
 
+let accessToken = getCookieValue('fssessionid');
+if(!accessToken) {
+  console.log(document.cookie);
+}
+
 const configTab = new ConfigTab();
 configTab.onClick = showTabPage;
 
@@ -111,7 +116,8 @@ function createCustomTab(data) {
 
 function urlData() {
   return {
-    pid: personId
+    pid: personId,
+    token: accessToken
   };
 }
 
@@ -146,4 +152,13 @@ function removeCustomTabHighlights() {
 
 function hideCustomContentSections() {
   tabs.forEach(t => t.hideContent());
+}
+
+/**
+ * Read a cookie value
+ * https://stackoverflow.com/a/25490531
+ */
+function getCookieValue(a) {
+  var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+  return b ? b.pop() : '';
 }
