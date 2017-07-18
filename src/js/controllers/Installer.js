@@ -12,14 +12,20 @@ class Installer {
 
   installTab(tab) {
     tab = utils.copy(tab);
-    this._installedTabs.push(tab);
-    chrome.storage.local.set({
-      installed: JSON.stringify(this._generateInstalledTabStorage())
-    }, () => {
-      this._onInstallTabCallbacks.forEach(cb => {
-        cb(tab);
+    let installed = false;
+    for(let i = 0; i < this._installedTabs.length && !installed; i++) {
+      if(this._installedTabs[i].id === tab.id) {
+        installed = true;
+      }
+    }
+    if(!installed) {
+      this._installedTabs.push(tab);
+      this._saveInstalledTabs(() => {
+        this._onInstallTabCallbacks.forEach(cb => {
+          cb(tab);
+        });
       });
-    });
+    }
   }
 
   onInstallTab(callback) {
@@ -32,6 +38,12 @@ class Installer {
 
   getInstalledTabs() {
     return this._installedTabs.map(t => utils.copy(t));
+  }
+
+  _saveInstalledTabs(callback) {
+    chrome.storage.local.set({
+      installed: JSON.stringify(this._generateInstalledTabStorage())
+    }, callback);
   }
 
   _loadInstalledTabs() {
