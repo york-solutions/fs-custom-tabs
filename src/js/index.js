@@ -16,8 +16,15 @@ let tabs = [configTab];
 
 Original.onTabClick(resetCustomState);
 
-Installer.onInstallTab(renderCustomTabs);
 Installer.onLoad(renderCustomTabs);
+Installer.onInstallTab(() => {
+  renderCustomTabs();
+  showTabPage(configTab);
+});
+Installer.onUninstallTab(() => {
+  renderCustomTabs();
+  showTabPage(configTab);
+});
 renderCustomTabs();
 
 onURLChange(update);

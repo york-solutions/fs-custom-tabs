@@ -6,7 +6,6 @@ class CustomTab extends Tab {
   constructor(data) {
     super(data.title);
     this.data = data;
-    this.cacheContent = false;
     this.urlData = function(){};
   }
 

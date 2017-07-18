@@ -4,9 +4,9 @@ import Installer from '../controllers/Installer.js';
 
 class AvailableTab extends Base {
 
-  constructor(data) {
+  constructor(manifest) {
     super();
-    this.data = utils.copy(data);
+    this.manifest = utils.copy(manifest);
   }
 
   render() {
@@ -14,19 +14,27 @@ class AvailableTab extends Base {
     tab.classList.add('available-tab');
 
     const icon = document.createElement('img');
-    icon.src = this.data.icon;
+    icon.src = this.manifest.icon;
     tab.appendChild(icon);
 
     const descr = document.createElement('p');
-    descr.textContent = this.data.description;
+    descr.textContent = this.manifest.description;
     tab.appendChild(descr);
 
     const button = document.createElement('button');
-    button.textContent = '+ Add';
     tab.appendChild(button);
-    tab.addEventListener('click', () => {
-      Installer.installTab(this.data);
-    });
+
+    if(Installer.isTabInstalled(this.manifest.id)) {
+      button.textContent = 'Remove';
+      tab.addEventListener('click', () => {
+        Installer.uninstallTab(this.manifest.id);
+      });
+    } else {
+      button.textContent = '+ Add';
+      tab.addEventListener('click', () => {
+        Installer.installTab(this.manifest);
+      });
+    }
 
     return tab;
   }

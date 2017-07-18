@@ -6,6 +6,7 @@ class Installer {
   constructor() {
     this._installedTabs = new Map();
     this._onInstallTabCallbacks = [];
+    this._onUninstallTabCallbacks = [];
     this._onLoadCallbacks = [];
     this._loadInstalledTabs();
   }
@@ -27,12 +28,27 @@ class Installer {
     return this._installedTabs.has(tabId);
   }
 
+  uninstallTab(tabId) {
+    if(this.isTabInstalled(tabId)) {
+      this._installedTabs.delete(tabId);
+      this._saveInstalledTabs(() => {
+        this._onUninstallTabCallbacks.forEach(cb => {
+          cb(tabId);
+        });
+      })
+    }
+  }
+
   onInstallTab(callback) {
     this._onInstallTabCallbacks.push(callback);
   }
 
   onLoad(callback) {
     this._onLoadCallbacks.push(callback);
+  }
+
+  onUninstallTab(callback) {
+    this._onUninstallTabCallbacks.push(callback);
   }
 
   getInstalledTabs() {

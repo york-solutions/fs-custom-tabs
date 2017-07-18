@@ -6,7 +6,6 @@ class Tab extends Base {
   constructor(text) {
     super();
     this.text = text;
-    this.cacheContent = true;
   }
 
   render() {
@@ -52,7 +51,7 @@ class Tab extends Base {
 
   renderContent() {
     this._ensureContentCreated();
-    return this.content.dom(!this.cacheContent);
+    return this.content.dom(true);
   }
 
   showContent() {
