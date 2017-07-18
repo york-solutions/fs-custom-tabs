@@ -4,7 +4,7 @@ import utils from '../utils.js';
 class Installer {
 
   constructor() {
-    this._installedTabs = [];
+    this._installedTabs = new Map();
     this._onInstallTabCallbacks = [];
     this._onLoadCallbacks = [];
     this._loadInstalledTabs();
@@ -13,19 +13,18 @@ class Installer {
   installTab(tab) {
     tab = utils.copy(tab);
     let installed = false;
-    for(let i = 0; i < this._installedTabs.length && !installed; i++) {
-      if(this._installedTabs[i].id === tab.id) {
-        installed = true;
-      }
-    }
-    if(!installed) {
-      this._installedTabs.push(tab);
+    if(!this.isTabInstalled(tab.id)) {
+      this._addInstalledTab(tab);
       this._saveInstalledTabs(() => {
         this._onInstallTabCallbacks.forEach(cb => {
           cb(tab);
         });
       });
     }
+  }
+
+  isTabInstalled(tabId) {
+    return this._installedTabs.has(tabId);
   }
 
   onInstallTab(callback) {
@@ -37,7 +36,13 @@ class Installer {
   }
 
   getInstalledTabs() {
-    return this._installedTabs.map(t => utils.copy(t));
+    return Array.from(this._installedTabs.values());
+  }
+
+  _addInstalledTab(manifest) {
+    if(manifest && manifest.id) {
+      this._installedTabs.set(manifest.id, manifest);
+    }
   }
 
   _saveInstalledTabs(callback) {
@@ -51,21 +56,18 @@ class Installer {
       'installed': JSON.stringify(this._defaultInstalledStorage())
     }, (items) => {
       let installed = JSON.parse(items.installed);
-      this._installedTabs = [];
+      this._installedTabs.clear();
       
       installed.packaged.forEach(tabId => {
-        const manifest = AvailableTabs.get(tabId);
-        if(manifest) {
-          this._installedTabs.push(manifest);
-        }
+        this._addInstalledTab(AvailableTabs.get(tabId));
       });
 
       installed.sideLoaded.forEach(manifest => {
-        this._installedTabs.push(manifest);
+        this._addInstalledTab(manifest);
       });
 
       this._onLoadCallbacks.forEach(cb => {
-        cb(utils.copy(this._installedTabs));
+        cb(this.getInstalledTabs());
       });
     });
   }
@@ -77,7 +79,7 @@ class Installer {
    * only be updated by uninstalling and reinstalling the tab.
    */
   _generateInstalledTabStorage() {
-    return this._installedTabs.reduce((accumulator, tab) => {
+    return this.getInstalledTabs().reduce((accumulator, tab) => {
       if(tab.sideLoaded) {
         accumulator.sideLoaded.push(tab);
       } else {
