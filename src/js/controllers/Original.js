@@ -9,7 +9,7 @@ class OriginalController {
     this._tabsList = null;
     this._whenRenderedCallbacks = [];
     this._onTabClickCallbacks = [];
-    this._customTabs = [];
+    this._customTabs = new Set();
 
     this.whenTabsRender(function(){
       this._setupClickListeners();
@@ -36,15 +36,16 @@ class OriginalController {
 
   addCustomTab($tab) {
     this.whenTabsRender(function(){
-      this._customTabs.push($tab);
+      this._customTabs.add($tab);
       this._tabsList.appendChild($tab);
     }.bind(this));
   }
 
   clearCustomTabs() {
-    this._customTabs.forEach($ct => {
-      this._tabsList.removeChild($ct);
-    });
+    for(let $tab of this._customTabs) {
+      this._tabsList.removeChild($tab);
+    }
+    this._customTabs.clear();
   }
 
   addContentSection($content, $existing) {

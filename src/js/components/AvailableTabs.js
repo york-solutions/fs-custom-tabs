@@ -1,4 +1,4 @@
-export default [
+const tabs = [
 
   {
     "id": "echo",
@@ -9,3 +9,20 @@ export default [
   }
 
 ];
+
+const index = tabs.reduce((index, tabManifest) => {
+  index[tabManifest.id] = tabManifest;
+  return index;
+}, {});
+
+export default {
+
+  get: function(id) {
+    return index[id];
+  },
+
+  getAll: function() {
+    return tabs.slice();
+  }
+
+}

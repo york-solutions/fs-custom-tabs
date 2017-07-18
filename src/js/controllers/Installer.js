@@ -1,3 +1,4 @@
+import AvailableTabs from '../components/AvailableTabs.js';
 import utils from '../utils.js';
 
 class Installer {
@@ -13,9 +14,7 @@ class Installer {
     tab = utils.copy(tab);
     this._installedTabs.push(tab);
     chrome.storage.local.set({
-      // TODO: storing a copy of the data prevent us from being able to push automatic updates
-      // Could only update a tab by uninstalling / reinstalling
-      installed: JSON.stringify(this._installedTabs)
+      installed: JSON.stringify(this._generateInstalledTabStorage())
     }, () => {
       this._onInstallTabCallbacks.forEach(cb => {
         cb(tab);
@@ -37,16 +36,53 @@ class Installer {
 
   _loadInstalledTabs() {
     chrome.storage.local.get({
-      'installed': '[]'
+      'installed': JSON.stringify(this._defaultInstalledStorage())
     }, (items) => {
-      this._installedTabs = JSON.parse(items.installed);
+      let installed = JSON.parse(items.installed);
+      this._installedTabs = [];
+      
+      installed.packaged.forEach(tabId => {
+        const manifest = AvailableTabs.get(tabId);
+        if(manifest) {
+          this._installedTabs.push(manifest);
+        }
+      });
+
+      installed.sideLoaded.forEach(manifest => {
+        this._installedTabs.push(manifest);
+      });
+
       this._onLoadCallbacks.forEach(cb => {
         cb(utils.copy(this._installedTabs));
-      })
+      });
     });
+  }
+
+  /**
+   * We want to store the entire manifest for side-loaded tabs
+   * but for packaged tabs we only store the ID so that they
+   * can be updated automatically. Otherwise packaged tabs could
+   * only be updated by uninstalling and reinstalling the tab.
+   */
+  _generateInstalledTabStorage() {
+    return this._installedTabs.reduce((accumulator, tab) => {
+      if(tab.sideLoaded) {
+        accumulator.sideLoaded.push(tab);
+      } else {
+        accumulator.packaged.push(tab.id);
+      }
+      return accumulator;
+    }, this._defaultInstalledStorage());
+  }
+
+  _defaultInstalledStorage() {
+    return {
+      packaged: [],
+      sideLoaded: []
+    };
   }
 
 }
 
-// Singleton!
+// Singleton
 export default new Installer();

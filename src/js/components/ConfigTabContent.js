@@ -1,6 +1,6 @@
 import TabContent from './TabContent.js';
 import AvailableTab from './AvailableTab.js';
-import availableTabs from './AvailableTabs.js';
+import AvailableTabs from './AvailableTabs.js';
 
 class ConfigTabContent extends TabContent {
 
@@ -21,7 +21,7 @@ class ConfigTabContent extends TabContent {
     wrap.appendChild(title);
 
     // Add list of available tabs
-    availableTabs.forEach(function(tab){
+    AvailableTabs.getAll().forEach(function(tab){
       wrap.appendChild(new AvailableTab(tab).dom());
     }.bind(this));
 
