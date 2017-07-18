@@ -21,15 +21,25 @@
   box-sizing: border-box;
 }
 
+.custom-configuration-content .rounded-section {
+  padding: 1em;
+  width: auto;
+}
+
+.custom-configuration-content .custom-content-container {
+  max-width: 900px;
+  margin: auto;
+}
+
 .custom-configuration-content h4 {
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
+  border-bottom: 1px solid #aaa;
 }
 
 .available-tab {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 800px;
   margin: auto;
 }
 
@@ -41,4 +51,13 @@
   margin-top: 0;
   background: transparent;
   border: 0;
+}
+
+.sideload-container {
+  margin-top: 5em;
+  overflow: auto;
+}
+
+.sideload-container button {
+  float: right;
 }

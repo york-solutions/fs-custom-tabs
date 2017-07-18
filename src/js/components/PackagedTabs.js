@@ -2,7 +2,7 @@ const tabs = [
 
   {
     "id": "echo",
-    "icon": "http://boulevardpr.com/echowp/wp-content/uploads/2015/08/echo_social02.jpg",
+    "icon": "https://boulevardpr.com/echowp/wp-content/uploads/2015/08/echo_social02.jpg",
     "title": "Echo",
     "description": "HTTP Echo, for testing because Google won't let us iframe",
     "url": "https://httpbin.org/get?pid={pid}&token={token}"

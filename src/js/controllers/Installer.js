@@ -1,4 +1,4 @@
-import AvailableTabs from '../components/AvailableTabs.js';
+import PackagedTabs from '../components/PackagedTabs.js';
 import utils from '../utils.js';
 
 class Installer {
@@ -75,7 +75,7 @@ class Installer {
       this._installedTabs.clear();
       
       installed.packaged.forEach(tabId => {
-        this._addInstalledTab(AvailableTabs.get(tabId));
+        this._addInstalledTab(PackagedTabs.get(tabId));
       });
 
       installed.sideLoaded.forEach(manifest => {
