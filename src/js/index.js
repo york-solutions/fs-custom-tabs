@@ -146,7 +146,7 @@ function renderTabContent(tab) {
  */
 function resetCustomState() {
   removeCustomTabHighlights();
-  configTab.hideContent();
+  hideCustomContentSections();
 }
 
 function removeCustomTabHighlights() {
