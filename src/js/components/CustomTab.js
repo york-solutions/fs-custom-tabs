@@ -10,7 +10,7 @@ class CustomTab extends Tab {
   }
 
   _createContent() {
-    return new CustomTabContent(this.data.url, this.urlData);
+    return new CustomTabContent(this.data, this.urlData);
   }
 
 }

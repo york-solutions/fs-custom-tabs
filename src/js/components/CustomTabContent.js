@@ -2,9 +2,9 @@ import TabContent from './TabContent.js';
 
 class CustomTabContent extends TabContent {
 
-  constructor(url, urlData) {
+  constructor(data, urlData) {
     super();
-    this.url = url;
+    this.data = data;
     this.urlData = urlData;
   }
 
@@ -20,8 +20,20 @@ class CustomTabContent extends TabContent {
     wrap.classList.add('section-wrap');
     section.appendChild(wrap);
 
+    const info = document.createElement('div');
+    info.innerHTML = `Tab provided by: ${this.data.company} - `;
+    wrap.appendChild(info);
+
+    const support = document.createElement('a');
+    support.textContent = 'Support';
+    support.href = 'javascript:void(0);';
+    support.addEventListener('click', () => {
+      console.log('show support popup');
+    });
+    info.appendChild(support);
+    
     const iframe = document.createElement('iframe');
-    iframe.src = this._constructUrl(this.url);
+    iframe.src = this._constructUrl(this.data.url);
     wrap.appendChild(iframe);
 
     return content;
@@ -29,7 +41,7 @@ class CustomTabContent extends TabContent {
 
   _constructUrl() {
     const data = this.urlData();
-    let url = this.url;
+    let url = this.data.url;
     Object.keys(data).forEach(key => {
       url = url.replace(`{${key}}`, data[key]);
     });

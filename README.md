@@ -12,7 +12,10 @@ Run `npm install && npm run build` before loading in Chrome as an [unpacked exte
   "icon": "https://boulevardpr.com/echowp/wp-content/uploads/2015/08/echo_social02.jpg",
   "title": "Echo",
   "description": "HTTP Echo, for testing because Google won't let us iframe",
-  "url": "https://httpbin.org/get?pid={pid}&token={token}"
+  "url": "https://httpbin.org/get?pid={pid}&token={token}",
+  "company": "ACME",
+  "phone": "888-123-4567",
+  "email": "dev@acme.com"
 }
 ```
 
