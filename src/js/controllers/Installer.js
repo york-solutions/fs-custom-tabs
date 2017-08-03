@@ -1,4 +1,4 @@
-import PackagedTabs from '../components/PackagedTabs.js';
+import AvailableTabs from '../controllers/AvailableTabs.js';
 import utils from '../utils.js';
 
 class Installer {
@@ -8,7 +8,10 @@ class Installer {
     this._onInstallTabCallbacks = [];
     this._onUninstallTabCallbacks = [];
     this._onLoadCallbacks = [];
-    this._loadInstalledTabs();
+    AvailableTabs.onLoad(() => {
+      console.log('tabs loaded');
+      this._loadInstalledTabs();
+    });
   }
 
   installTab(tab) {
@@ -75,7 +78,7 @@ class Installer {
       this._installedTabs.clear();
       
       installed.packaged.forEach(tabId => {
-        this._addInstalledTab(PackagedTabs.get(tabId));
+        this._addInstalledTab(AvailableTabs.get(tabId));
       });
 
       installed.sideLoaded.forEach(manifest => {

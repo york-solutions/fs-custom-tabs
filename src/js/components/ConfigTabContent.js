@@ -1,6 +1,6 @@
 import TabContent from './TabContent.js';
 import AvailableTab from './AvailableTab.js';
-import PackagedTabs from './PackagedTabs.js';
+import AvailableTabs from '../controllers/AvailableTabs.js';
 import Installer from '../controllers/Installer.js';
 
 class ConfigTabContent extends TabContent {
@@ -21,10 +21,12 @@ class ConfigTabContent extends TabContent {
     title.textContent = 'Available Tabs';
     container.appendChild(title);
 
-    // List packaged tabs
-    PackagedTabs.getAll().forEach(function(tab){
-      container.appendChild(new AvailableTab(tab).dom());
-    }.bind(this));
+    // List available tabs
+    AvailableTabs.onLoad(() => {
+      AvailableTabs.getAll().forEach((tab) => {
+        container.appendChild(new AvailableTab(tab).dom());
+      });
+    });
 
     container.appendChild(this._renderSideloadContent());
 
