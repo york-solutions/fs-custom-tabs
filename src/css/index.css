@@ -61,3 +61,36 @@
 .sideload-container button {
   float: right;
 }
+
+.popup {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-tip {
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-bottom: 10px solid #ccc;
+  position: relative;
+}
+
+.popup-tip:after {
+  content: '';
+  width: 0;
+  height: 0;
+  position: absolute;
+  border: 9px solid transparent;
+  border-bottom: 9px solid white;
+  left: -9px;
+  top: -7px;
+}
+
+.popup-body {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: white;
+}
