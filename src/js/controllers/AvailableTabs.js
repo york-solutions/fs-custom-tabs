@@ -6,42 +6,75 @@ const tabsUrl = 'https://gist.githubusercontent.com/justincy/cbfd482a75d5d8f8deb
 const tabs = [];
 
 // Index to tabs keyed by tab.id
-const index = [];
+const index = {};
 
 const loadedCallbacks = [];
 let loaded = false;
 
 // Load local cached version
+loadLocal((localTabs, timestamp) => {
 
-// Attempt to load from remote source
-// TODO: don't load remotely every time; perhaps only every hour or 30 minutes
-loadRemotely();
-
-/**
- * Load the list of available tabs from the remote master source
- */
-function loadRemotely() {
-  fetch(tabsUrl).then((response) => {
-    if(response.ok) {
-      return response.json();
-    }
-  }).then((remoteTabs) => {
-    remoteTabs.forEach((tab) => {
-      tabs.push(tab);
-      index[tab.id] = tab;
+  // Fetch the list remotely if it's not available locally (first load of the extension)
+  // or refresh if the list of tabs is more than an hour old.
+  if(!localTabs || (timestamp && (timestamp + 3600000 < Date.now()))) {
+    loadRemotely((remoteTabs) => {
+      processTabs(remoteTabs);
+      saveTabs(remoteTabs);
     });
-    doneLoading();
-  });
-}
+  } 
+  
+  // Otherwise (list available and is fresh) then continue
+  else {
+    processTabs(localTabs);
+  }
+});
 
 /**
- * Fire all registered loaded callbacks
+ * Process the list of loaded tabs, mark as loaded, and fire loaded callbacks
  */
-function doneLoading() {
+function processTabs(newTabs) {
+  newTabs.forEach((tab) => {
+    tabs.push(tab);
+    index[tab.id] = tab;
+  });
   loaded = true;
   loadedCallbacks.forEach((cb) => {
     cb();
   });
+}
+
+/**
+ * Save the list of loaded tabs
+ */
+function saveTabs(tabs) {
+  chrome.storage.local.set({
+    available: JSON.stringify({tabs: tabs, timestamp: Date.now()})
+  });
+}
+
+/**
+ * Load the list of tabs from the local cache, if available
+ * 
+ * @param {Function} cb function(tabs, timestamp)
+ */
+function loadLocal(cb) {
+  chrome.storage.local.get({
+    available: '{}'
+  }, (items) => {
+    const {tabs, timestamp} = JSON.parse(items.available);
+    cb(tabs, timestamp);
+  });
+}
+
+/**
+ * Load the list of available tabs from the remote master source
+ */
+function loadRemotely(cb) {
+  fetch(tabsUrl).then((response) => {
+    if(response.ok) {
+      return response.json();
+    }
+  }).then(cb);
 }
 
 /**

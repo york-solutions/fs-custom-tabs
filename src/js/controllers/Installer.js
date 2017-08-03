@@ -9,7 +9,6 @@ class Installer {
     this._onUninstallTabCallbacks = [];
     this._onLoadCallbacks = [];
     AvailableTabs.onLoad(() => {
-      console.log('tabs loaded');
       this._loadInstalledTabs();
     });
   }
@@ -72,7 +71,7 @@ class Installer {
 
   _loadInstalledTabs() {
     chrome.storage.local.get({
-      'installed': JSON.stringify(this._defaultInstalledStorage())
+      installed: JSON.stringify(this._defaultInstalledStorage())
     }, (items) => {
       let installed = JSON.parse(items.installed);
       this._installedTabs.clear();
