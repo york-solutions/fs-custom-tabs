@@ -1,6 +1,5 @@
 // URL of where the master tabs manifest list should be fetched from
-// const tabsUrl = 'https://rawgit.com/york-solutions/fs-custom-tabs/master/tabs.json';
-const tabsUrl = 'https://gist.githubusercontent.com/justincy/cbfd482a75d5d8f8deb638439d06335c/raw/73a92cf458bf4ff579b3e740daa6b247caa57209/tabs.json';
+const tabsUrl = 'https://rawgit.com/york-solutions/fs-custom-tabs/master/tabs.json';
 
 // List of all available tabs (not side-loaded)
 const tabs = [];
