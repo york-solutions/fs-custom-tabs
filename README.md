@@ -9,7 +9,7 @@ Run `npm install && npm run build` before loading in Chrome as an [unpacked exte
 ```js
 {
   "id": "echo",
-  "icon": "https://boulevardpr.com/echowp/wp-content/uploads/2015/08/echo_social02.jpg",
+  "icon": "http://www.iconsdb.com/icons/preview/black/speaker-xxl.png",
   "title": "Echo",
   "description": "HTTP Echo, for testing because Google won't let us iframe",
   "url": "https://httpbin.org/get?pid={pid}&token={token}",
