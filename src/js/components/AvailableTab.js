@@ -26,12 +26,12 @@ class AvailableTab extends Base {
 
     if(Installer.isTabInstalled(this.manifest.id)) {
       button.textContent = 'Remove';
-      tab.addEventListener('click', () => {
+      button.addEventListener('click', () => {
         Installer.uninstallTab(this.manifest.id);
       });
     } else {
       button.textContent = '+ Add';
-      tab.addEventListener('click', () => {
+      button.addEventListener('click', () => {
         Installer.installTab(this.manifest);
       });
     }
