@@ -23,7 +23,8 @@ class CustomTabContent extends TabContent {
     section.appendChild(wrap);
 
     const info = document.createElement('div');
-    info.innerHTML = `Tab provided by: ${this.data.company} - `;
+    info.classList.add('company');
+    info.innerHTML = `<img src="${this.data.icon}"><div>Tab provided by: ${this.data.company} -&nbsp;</div>`;
     wrap.appendChild(info);
 
     const support = document.createElement('a');

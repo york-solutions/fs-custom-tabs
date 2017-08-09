@@ -62,6 +62,18 @@
   float: right;
 }
 
+.custom-content .company {
+  font-size: 1.2rem;
+  margin-bottom: .5em;
+  display: flex;
+  align-items: center;
+  margin-left: -15px;
+}
+
+.custom-content .company img {
+  height: 32px;
+}
+
 .popup {
   position: absolute;
   display: flex;
