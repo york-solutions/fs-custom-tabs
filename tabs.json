@@ -1,7 +1,7 @@
 [
   {
     "id": "dna",
-    "icon": "https://cdn4.iconfinder.com/data/icons/medicons-2/512/dna_helix-128.png",
+    "icon": "https://68.media.tumblr.com/avatar_11161c9e5f4f_128.png",
     "title": "DNA",
     "description": "View DNA test results and discover DNA cousins.",
     "company": "DNA Company",
@@ -11,9 +11,9 @@
   },
   {
     "id": "echo",
-    "icon": "https://boulevardpr.com/echowp/wp-content/uploads/2015/08/echo_social02.jpg",
+    "icon": "http://www.iconsdb.com/icons/preview/black/speaker-xxl.png",
     "title": "Echo",
-    "description": "HTTP Echo, for testing because Google won't let us iframe",
+    "description": "TESTING: Test tab to verify the custom tab framework is working",
     "url": "https://httpbin.org/get?pid={pid}&token={token}",
     "company": "ACME",
     "phone": "888-123-4567",
