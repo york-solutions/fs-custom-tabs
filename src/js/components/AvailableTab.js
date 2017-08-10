@@ -13,8 +13,10 @@ class AvailableTab extends Base {
     const tab = document.createElement('div');
     tab.classList.add('available-tab');
 
-    const icon = document.createElement('img');
-    icon.src = this.manifest.icon;
+    const icon = document.createElement('div');
+    icon.classList.add('icon');
+    icon.style.backgroundImage = `url(${this.manifest.icon})`;
+    icon.style.backgroundSize = '';
     tab.appendChild(icon);
 
     const descr = document.createElement('p');

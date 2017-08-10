@@ -40,17 +40,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: auto;
+  padding: 1em 0;
 }
 
-.available-tab img {
+.available-tab .icon {
+  width: 64px;
   height: 64px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 2em;
+}
+
+.available-tab p {
+  flex: 1;
 }
 
 .available-tab button {
   margin-top: 0;
   background: transparent;
   border: 0;
+}
+
+.available-tab button:hover {
+  margin-top: 0;
+  background: transparent;
+  border: 0;
+  text-decoration: underline;
 }
 
 .sideload-container {
