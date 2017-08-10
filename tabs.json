@@ -1,29 +1,29 @@
 [
   {
     "id": "dna",
-    "icon": "https://68.media.tumblr.com/avatar_11161c9e5f4f_128.png",
+    "icon": "https://raw.githubusercontent.com/misbach/tabs/master/dna/dna.png",
     "title": "DNA",
     "description": "View DNA test results and discover DNA cousins.",
     "company": "DNA Company",
     "phone": "800-555-1212",
     "email": "info@dnacompany.com",
     "url": "https://misbach.github.io/tabs/dna/index.html?pid={pid}&token={token}",
-    "support_url": "https://github.com/misbach/tabs/issues"
+    "support_url": "http://dnacompany.com"
   },
   {
     "id": "trello",
     "icon": "https://d2k1ftgv7pobq7.cloudfront.net/meta/u/res/images/brand-assets/Logos/0099ec3754bf473d2bbf317204ab6fea/trello-logo-blue.png",
     "title": "Trello",
-    "description": "Track research tasks in Trello",
+    "description": "Create, Share and Track research tasks in Trello",
     "url": "https://york.io/fs-custom-trello-tab/?pid={pid}&token={token}",
-    "company": "FamilySearch",
+    "company": "Trello",
     "phone": "888-987-1234",
-    "email": "trello@familysearch.org",
-    "support_url": "https://github.com/york-solutions/fs-custom-trello-tab/issues"
+    "email": "info@trello.com",
+    "support_url": "https://trello.com"
   },
   {
     "id": "echo",
-    "icon": "http://www.iconsdb.com/icons/preview/black/speaker-xxl.png",
+    "icon": "https://image.freepik.com/free-icon/wrench_318-114535.jpg",
     "title": "Echo",
     "description": "TESTING: Test tab to verify the custom tab framework is working",
     "url": "https://httpbin.org/get?pid={pid}&token={token}",
