@@ -7,7 +7,19 @@
     "company": "DNA Company",
     "phone": "800-555-1212",
     "email": "info@dnacompany.com",
-    "url": "https://misbach.github.io/tabs/dna/index.html?pid={pid}&token={token}"
+    "url": "https://misbach.github.io/tabs/dna/index.html?pid={pid}&token={token}",
+    "support_url": "https://github.com/misbach/tabs/issues"
+  },
+  {
+    "id": "trello",
+    "icon": "https://d2k1ftgv7pobq7.cloudfront.net/meta/u/res/images/brand-assets/Logos/0099ec3754bf473d2bbf317204ab6fea/trello-logo-blue.png",
+    "title": "Trello",
+    "description": "Track research tasks in Trello",
+    "url": "https://york.io/fs-custom-trello-tab/?pid={pid}&token={token}",
+    "company": "FamilySearch",
+    "phone": "888-987-1234",
+    "email": "trello@familysearch.org",
+    "support_url": "https://github.com/york-solutions/fs-custom-trello-tab/issues"
   },
   {
     "id": "echo",
@@ -17,6 +29,7 @@
     "url": "https://httpbin.org/get?pid={pid}&token={token}",
     "company": "ACME",
     "phone": "888-123-4567",
-    "email": "dev@acme.com"
+    "email": "dev@acme.com",
+    "support_url": "https://familysearch.org/developers"
   }
 ]
