@@ -64,8 +64,7 @@ class CustomTabContent extends TabContent {
   }
 
   popupContent() {
-    return `<p>Contact ${this.data.company}:<br/>
-      <a href="${this.data.support_url}" target="_blank">${this.data.support_url}</a><br/>
+    return `<p>For support contact <a href="${this.data.support_url}" target="_blank">${this.data.company}</a>:<br/>
       <a href="tel:${this.data.phone}">${this.data.phone}</a><br/>
       <a href="mailto:${this.data.email}">${this.data.email}</a></p>`;
   }
