@@ -22,6 +22,17 @@
     "support_url": "https://trello.com"
   },
   {
+  "id": "search",
+  "icon": "http://icons.veryicon.com/128/System/Blue%20Bits/globe%20search.png",
+  "title": "Search",
+  "description": "Search for your ancestor in popular historical records",
+  "company": "Tabs R Us",
+  "phone": "800-555-1212",
+  "email": "info@tabs-r-us.com",
+  "url": "https://misbach.github.io/tabs/search/index.html?pid={pid}&token={token}",
+  "support_url": "mailto:info@tabs-r-us.com"
+  },
+  {
     "id": "echo",
     "icon": "https://image.freepik.com/free-icon/wrench_318-114535.jpg",
     "title": "Echo",
