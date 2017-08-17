@@ -1,12 +1,14 @@
+import Installer from '../controllers/Installer.js';
 import TabContent from './TabContent.js';
+import Dialog from './Dialog.js';
 import Popup from './Popup';
 import utils from '../utils';
 
 class CustomTabContent extends TabContent {
 
-  constructor(data, urlData) {
+  constructor(manifest, urlData) {
     super();
-    this.data = data;
+    this.manifest = manifest;
     this.urlData = urlData;
   }
 
@@ -24,7 +26,7 @@ class CustomTabContent extends TabContent {
 
     const info = document.createElement('div');
     info.classList.add('company');
-    info.innerHTML = `<img src="${this.data.icon}"><div>Tab provided by: ${this.data.company} -&nbsp;</div>`;
+    info.innerHTML = `<img src="${this.manifest.icon}"><div>Tab provided by: ${this.manifest.company} -&nbsp;</div>`;
     wrap.appendChild(info);
 
     const support = document.createElement('a');
@@ -34,8 +36,16 @@ class CustomTabContent extends TabContent {
     info.appendChild(support);
     
     const iframe = document.createElement('iframe');
-    iframe.src = this._constructUrl(this.data.url);
+    iframe.src = this._constructUrl(this.manifest.url);
     wrap.appendChild(iframe);
+
+    if(!this.manifest._warningDismissed) {
+      const dialog = new Dialog('Warning', 'The content of custom tabs is coming from another website provided by another company.', () => {
+        Installer.warningDismissed(this.manifest.id);
+        this.manifest._warningDismissed = true;
+      });
+      content.appendChild(dialog.dom());
+    }
 
     return content;
   }
@@ -64,14 +74,14 @@ class CustomTabContent extends TabContent {
   }
 
   popupContent() {
-    return `<p>For support contact <a href="${this.data.support_url}" target="_blank">${this.data.company}</a>:<br/>
-      <a href="tel:${this.data.phone}">${this.data.phone}</a><br/>
-      <a href="mailto:${this.data.email}">${this.data.email}</a></p>`;
+    return `<p>For support contact <a href="${this.manifest.support_url}" target="_blank">${this.manifest.company}</a>:<br/>
+      <a href="tel:${this.manifest.phone}">${this.manifest.phone}</a><br/>
+      <a href="mailto:${this.manifest.email}">${this.manifest.email}</a></p>`;
   }
 
   _constructUrl() {
     const data = this.urlData();
-    let url = this.data.url;
+    let url = this.manifest.url;
     Object.keys(data).forEach(key => {
       url = url.replace(`{${key}}`, data[key]);
     });

@@ -6,10 +6,11 @@ import Base from './Base.js';
  */
 class Dialog extends Base {
 
-  constructor(title, text) {
+  constructor(title, text, onClick = function(){}) {
     super();
     this.title = title;
     this.text = text;
+    this.onClick = onClick;
   }
 
   render() {
@@ -46,8 +47,9 @@ class Dialog extends Base {
     const button = document.createElement('button');
     button.classList.add('fs-button', 'fs-button--recommended');
     button.textContent = 'OK';
-    button.addEventListener('click', function(){
+    button.addEventListener('click', () => {
       container.remove();
+      this.onClick();
     });
     buttons.appendChild(button);
 

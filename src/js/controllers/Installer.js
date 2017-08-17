@@ -57,21 +57,43 @@ class Installer {
     return Array.from(this._installedTabs.values());
   }
 
+  warningDismissed(tabId, save = true) {
+    const manifest = this._installedTabs.get(tabId);
+    if(manifest) {
+      manifest._warningDismissed = true;
+      if(save) {
+        this._saveInstalledTabs();
+      }
+    }
+  }
+
   _addInstalledTab(manifest) {
     if(manifest && manifest.id) {
+      manifest._warningDismissed = false;
       this._installedTabs.set(manifest.id, manifest);
     }
   }
 
   _saveInstalledTabs(callback) {
     chrome.storage.local.set({
-      installed: JSON.stringify(this._generateInstalledTabStorage())
+      installed: JSON.stringify(this._generateInstalledTabStorage()),
+      warningDismissed: JSON.stringify(this._warningDismissedList())
     }, callback);
+  }
+
+  _warningDismissedList() {
+    return this.getInstalledTabs().reduce((list, tab) => {
+      if(tab._warningDismissed) {
+        list.push(tab.id);
+      }
+      return list;
+    }, []);
   }
 
   _loadInstalledTabs() {
     chrome.storage.local.get({
-      installed: JSON.stringify(this._defaultInstalledStorage())
+      installed: JSON.stringify(this._defaultInstalledStorage()),
+      warningDismissed: '[]'
     }, (items) => {
       let installed = JSON.parse(items.installed);
       this._installedTabs.clear();
@@ -82,6 +104,10 @@ class Installer {
 
       installed.sideLoaded.forEach(manifest => {
         this._addInstalledTab(manifest);
+      });
+
+      JSON.parse(items.warningDismissed).forEach((tabId) => {
+        this.warningDismissed(tabId, false);
       });
 
       this._onLoadCallbacks.forEach(cb => {
