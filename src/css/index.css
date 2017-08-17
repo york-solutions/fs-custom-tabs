@@ -25,6 +25,10 @@
   box-sizing: border-box;
 }
 
+.custom-content h4 {
+  margin-top: 2em;
+}
+
 .custom-configuration-content .rounded-section {
   padding: 1em;
   width: auto;
@@ -73,7 +77,6 @@
 }
 
 .sideload-container {
-  margin-top: 5em;
   overflow: auto;
 }
 

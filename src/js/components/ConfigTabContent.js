@@ -17,6 +17,10 @@ class ConfigTabContent extends TabContent {
     container.classList.add('custom-content-container');
     section.appendChild(container);
 
+    const warning = document.createElement('p');
+    warning.textContent = 'The content of custom tabs is coming from another website provided by another company.';
+    container.appendChild(warning);
+
     const title = document.createElement('h4');
     title.textContent = 'Available Tabs';
     container.appendChild(title);
