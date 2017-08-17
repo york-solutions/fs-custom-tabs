@@ -124,9 +124,6 @@ function urlData() {
   };
 }
 
-/**
- * Show the configuration page
- */
 function showTabPage(tab) {
   Original.removeTabHighlights();
   removeCustomTabHighlights();
