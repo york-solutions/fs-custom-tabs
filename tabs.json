@@ -14,7 +14,7 @@
     "id": "trello",
     "icon": "https://d2k1ftgv7pobq7.cloudfront.net/meta/u/res/images/brand-assets/Logos/0099ec3754bf473d2bbf317204ab6fea/trello-logo-blue.png",
     "title": "Trello",
-    "description": "Create, Share and Track research tasks in Trello",
+    "description": "Trello: Create, Share and Track research tasks in Trello",
     "url": "https://york.io/fs-custom-trello-tab/?pid={pid}&token={token}",
     "company": "Trello",
     "phone": "888-987-1234",
@@ -22,14 +22,36 @@
     "support_url": "https://trello.com"
   },
   {
-    "id": "echo",
-    "icon": "https://image.freepik.com/free-icon/wrench_318-114535.jpg",
-    "title": "Echo",
-    "description": "TESTING: Test tab to verify the custom tab framework is working",
-    "url": "https://httpbin.org/get?pid={pid}&token={token}",
-    "company": "ACME",
-    "phone": "888-123-4567",
-    "email": "dev@acme.com",
-    "support_url": "https://familysearch.org/developers"
-  }
+  "id": "search",
+  "icon": "https://misbach.github.io/tabs/search/logos/icon.png",
+  "title": "Search Records",
+  "description": "Search Records: Search for your ancestor in popular historical records",
+  "company": "FamilySearch",
+  "phone": "1-866-406-1830",
+  "email": "help@familysearch.org",
+  "url": "https://misbach.github.io/tabs/search/index.html?pid={pid}&token={token}",
+  "support_url": "https://familysearch.org/ask/help"
+  },
+  {
+  "id": "findarecord",
+  "icon": "https://www.findarecord.com/assets/img/logos/256x256.png",
+  "title": "Find A Record",
+  "description": "Find A Record: Discover research opportinuties",
+  "company": "Find A Record",
+  "phone": "800-555-1212",
+  "email": "info@findarecord.com",
+  "url": "https://www.findarecord.com/en/research/familysearch/opportunities/{pid}",
+  "support_url": "mailto:info@findarecord.com"
+  },
+  {
+  "id": "puzzilla",
+  "icon": "http://www.valleyhelpathome.com/wp-content/uploads/2014/02/Puzzilla.png",
+  "title": "Puzzilla",
+  "description": "Puzzilla: Descendancy browser",
+  "company": "Puzzilla",
+  "phone": "800-555-1212",
+  "email": "info@puzzilla.org",
+  "url": "https://puzzilla.org/descendants?id={pid}",
+  "support_url": "https://puzzilla.org/sendmail"
+}
 ]
