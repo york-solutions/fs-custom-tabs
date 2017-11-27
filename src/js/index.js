@@ -58,7 +58,7 @@ function update() {
  */
 function getPersonPageId() {
   if(isPersonPage()) {
-    return window.location.pathname.split('/')[3];
+    return window.location.pathname.split('/')[4];
   }
   return null;
 }
